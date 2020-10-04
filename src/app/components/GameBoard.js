@@ -2,6 +2,8 @@ import React from 'react'
 import { getMovieList, getPersonsFromApi} from '../service/api';
 import Questions from './questions.js'
 
+import './gameBoard.css'
+
 
 class GameBoard extends React.Component {
 
@@ -16,9 +18,7 @@ class GameBoard extends React.Component {
     }
 
     getAllMovie = () => {
-        getMovieList().then(movies => {
-            this.setState({allMovies: movies.results})}
-            )
+        getMovieList().then(movies => {this.setState({allMovies: movies.results})})
     }
 
     getAllPersons = () => {
@@ -27,7 +27,7 @@ class GameBoard extends React.Component {
 
     render() {
         return (
-            <div> 
+            <div className="GameBoard"> 
             {
                 this.state.allMovies.length > 0 && this.state.allPersons.length > 0 ?
                 <Questions allMovies= {this.state.allMovies} allPersons={this.state.allPersons}></Questions> 

@@ -1,6 +1,9 @@
 import React from 'react'
+
 import { getDetailPerson, getMoviesPerson, getDetailMovie } from '../service/api';
 import getRandomInt from '../helpers/randomNumber.js'
+
+import './questions.css'
 
 class Questions extends React.Component {
 
@@ -9,10 +12,8 @@ class Questions extends React.Component {
             idActor: null,
             nameActor: null,
             actorMovies: [],
-
             movieName: null,
             movieId: null,
-
             rightAnswer: false
     }
 
@@ -62,7 +63,7 @@ class Questions extends React.Component {
     }
 
     getAnswer = () => {
-        this.state.actorMovies.map((i) => i === this.state.movieId === true ? 
+        this.state.actorMovies.map((i) => (i === this.state.movieId) === true ? 
             this.setState({rightAnswer: true}) : null 
         );
     }
@@ -72,6 +73,7 @@ class Questions extends React.Component {
         e.preventDefault();
         
         if (String(this.state.rightAnswer) === e.target.value) {
+            //TODO: rajouter un point au score
         }
 
         this.init();
@@ -79,13 +81,22 @@ class Questions extends React.Component {
 
     render() {
         return (
-            <div>
-                <span>Did {this.state.nameActor} play </span>
-                <span>in {this.state.movieName} ? </span>
-                <br/>
-                <span></span>
-                <button value={true} onClick={this.handleClick}>True</button>
-                <button value={false} onClick={this.handleClick}>False</button>
+            <div className="Questions">
+                <div className="Questions_score">
+                    <span>Score: 1 point(s)</span>
+                </div>
+                <div className="Questions_pictures">
+                    <img alt='ij' className="Questions_pictures-actor" src="https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/50/2015/02/eddie-redmayne-scaled.jpg"></img>
+                    <img alt='ij' className="Questions_pictures-movie" src="https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/50/2015/02/eddie-redmayne-scaled.jpg"></img>
+                </div>
+                <div className="Questions_question">
+                    <span> Did <span className="Questions_question_colorText">{this.state.nameActor}</span> play </span>
+                    <span> in <span className="Questions_question_colorText "> {this.state.movieName}</span> ? </span>
+                </div>
+                <div className="Questions_buttons">
+                    <button value={true} onClick={this.handleClick} className='Questions_button-T'>True</button>
+                    <button value={false} onClick={this.handleClick} className='Questions_button-F'>False</button>
+                </div>
             </div>
         )
     }
