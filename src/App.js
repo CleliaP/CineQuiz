@@ -1,14 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import GameBoard from './app/components/Game-board.js'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
-  );
+export class App extends React.Component {
+
+
+  render() {
+
+    return (
+      <div className="App">
+        <header className="App-header">
+        </header>
+        <GameBoard></GameBoard>
+      </div>
+    );
+  }
 }
 
 export default App;
