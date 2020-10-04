@@ -1,5 +1,5 @@
 import React from 'react'
-import { getMovieList, getPersonsFromApi} from '../service/api';
+import { getMoviesFromApi, getActorsFromApi} from '../service/api';
 import Questions from './questions.js'
 
 import './gameBoard.css'
@@ -18,11 +18,11 @@ class GameBoard extends React.Component {
     }
 
     getAllMovie = () => {
-        getMovieList().then(movies => {this.setState({allMovies: movies.results})})
+        getMoviesFromApi().then(movies => {this.setState({allMovies: movies.results})})
     }
 
     getAllPersons = () => {
-        getPersonsFromApi().then(persons => this.setState({ allPersons: persons.results}))
+        getActorsFromApi().then(persons => this.setState({ allPersons: persons.results}))
     }
 
     render() {
