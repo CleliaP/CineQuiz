@@ -6,13 +6,17 @@
     margin-bottom: 5%;
 }
 
+.Questions_pictures { 
+    margin-bottom: 1%;
+}
+
 .Questions_pictures-actor,
 .Questions_pictures-movie {
-    width: 200px;
+    width: 180px;
     margin-bottom: 5%;
 }
 
-.Questions_pictures-actor{
+.Questions_pictures-actor-not-alone{
     float: left;
     margin-right: 18%;
 }

@@ -1,20 +1,29 @@
 import React from 'react'
 
-import { getDetailPerson, getMoviesPerson, getDetailMovie } from '../service/api';
-import getRandomInt from '../helpers/randomNumber.js'
+import { getDetailActor, 
+        getMoviesOfActor, 
+        getDetailMovie, 
+        getImagesofActor, 
+        getImagesofMovie } 
+from '../service/api';
+import getRandomInt from '../helpers/randomNumber'
+import { renderNothing } from '../helpers/renderNothing'
 
 import './questions.css'
+import * as CONSTANTS from '../../constants.js';
+const { BASE_URL_IMAGE_ACTOR } = CONSTANTS;
 
 class Questions extends React.Component {
 
    state = {
-
-            idActor: null,
-            nameActor: null,
-            actorMovies: [],
-            movieName: null,
-            movieId: null,
-            rightAnswer: false
+        idActor: null,
+        nameActor: null,
+        actorMovies: [],
+        movieName: null,
+        movieId: null,
+        rightAnswer: false,
+        urlImageActor: null,
+        urlImageMovie: null
     }
 
     componentDidMount(){
@@ -22,7 +31,7 @@ class Questions extends React.Component {
     }
 
     init() {
-         if(this.props.allMovies.length > 0 && this.props.allPersons.length > 0 ) {
+        if(this.props.allMovies.length > 0 && this.props.allPersons.length > 0 ) {
             this.getActorInformations();
             this.getRandomMovie();
         }
@@ -35,11 +44,11 @@ class Questions extends React.Component {
 
             const idActor = randomActorID.id
 
-            getDetailPerson(idActor).then(data => {
+            getDetailActor(idActor).then(data => {
                 this.setState({ nameActor: data.name});
             })
 
-            getMoviesPerson(idActor).then(data => {
+            getMoviesOfActor(idActor).then(data => {
                 const listIdMovies = [];
                 if (data.cast) {
                     if(data.cast.length > 1) data.cast.map(el => listIdMovies.push(el.id));
@@ -47,7 +56,12 @@ class Questions extends React.Component {
                     this.setState({ actorMovies: listIdMovies
                 });
                 }
-            })   
+            }) 
+            getImagesofActor(idActor).then(data => {
+                const url = BASE_URL_IMAGE_ACTOR + data.profiles[0].file_path
+                this.setState({urlImageActor: url})
+            })
+   
         } ;
     }
 
@@ -59,6 +73,15 @@ class Questions extends React.Component {
                 this.setState({movieId: movieId})
                 this.setState({movieName: data.title})
             });
+
+            getImagesofMovie(movieId).then(data => {
+                console.log(data.posters)
+                if(data.posters.length > 0 ) {
+                    const url = BASE_URL_IMAGE_ACTOR + data.posters[0].file_path
+                    this.setState({urlImageMovie: url})
+                    console.log(url) 
+                } 
+            })
         }
     }
 
@@ -76,6 +99,7 @@ class Questions extends React.Component {
             //TODO: rajouter un point au score
         }
 
+        this.setState({urlImageMovie: null})
         this.init();
     }
 
@@ -86,8 +110,14 @@ class Questions extends React.Component {
                     <span>Score: 1 point(s)</span>
                 </div>
                 <div className="Questions_pictures">
-                    <img alt='ij' className="Questions_pictures-actor" src="https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/50/2015/02/eddie-redmayne-scaled.jpg"></img>
-                    <img alt='ij' className="Questions_pictures-movie" src="https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/50/2015/02/eddie-redmayne-scaled.jpg"></img>
+                    <img alt={this.state.nameActor} className={`Questions_pictures-actor ${this.state.urlImageMovie? 'Questions_pictures-actor-not-alone' : ''}`} src={this.state.urlImageActor}></img>
+                   
+                    { 
+                    this.state.urlImageMovie ? 
+                        <img alt={this.state.movieName} className="Questions_pictures-movie" src={this.state.urlImageMovie}></img>
+                        : renderNothing
+                    }
+
                 </div>
                 <div className="Questions_question">
                     <span> Did <span className="Questions_question_colorText">{this.state.nameActor}</span> play </span>
