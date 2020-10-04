@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GameBoard from './app/components/gameBoard.js'
+import GameBoard from './app/components/GameBoard.js'
 import logo from './app/styles/img/logoCineQuiz.png'
 import './App.css';
 
