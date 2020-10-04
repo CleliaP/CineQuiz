@@ -1,0 +1,62 @@
+.Questions {
+    width: 500px;
+}
+
+.Questions_score {
+    margin-bottom: 5%;
+}
+
+.Questions_pictures-actor,
+.Questions_pictures-movie {
+    width: 200px;
+    margin-bottom: 5%;
+}
+
+.Questions_pictures-actor{
+    float: left;
+    margin-right: 18%;
+}
+
+.Questions_buttons {
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.Questions_question_colorText{
+    color: purple;
+    font-weight: bold;
+}
+
+.Questions_button-T,
+.Questions_button-F  {
+	background-color:#ae63bd;
+	border-radius:6px;
+	border:1px solid #a511c0;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:16px;
+	font-weight:bold;
+	padding:12px 23px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #9b14b3;
+}
+
+.Questions_button-T:hover,
+.Questions_button-F:hover {
+	background:linear-gradient(to bottom, #a20dbd 5%, #ae63bd 100%);
+	background-color:#a20dbd;
+}
+
+.Questions_button-T:active,
+.Questions_button-F:active  {
+	position:relative;
+	top:1px;
+}
+
+
+.Questions_button-T {
+    float: left;
+}
