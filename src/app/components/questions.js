@@ -23,7 +23,8 @@ class Questions extends React.Component {
         movieId: null,
         rightAnswer: false,
         urlImageActor: null,
-        urlImageMovie: null
+        urlImageMovie: null,
+        scorePlayer:0
     }
 
     componentDidMount(){
@@ -75,11 +76,9 @@ class Questions extends React.Component {
             });
 
             getImagesofMovie(movieId).then(data => {
-                console.log(data.posters)
                 if(data.posters.length > 0 ) {
                     const url = BASE_URL_IMAGE_ACTOR + data.posters[0].file_path
                     this.setState({urlImageMovie: url})
-                    console.log(url) 
                 } 
             })
         }
@@ -96,7 +95,9 @@ class Questions extends React.Component {
         e.preventDefault();
         
         if (String(this.state.rightAnswer) === e.target.value) {
-            //TODO: rajouter un point au score
+            this.setState(prevState => ({
+                scorePlayer: prevState.scorePlayer +1
+            }));
         }
 
         this.setState({urlImageMovie: null})
@@ -107,17 +108,15 @@ class Questions extends React.Component {
         return (
             <div className="Questions">
                 <div className="Questions_score">
-                    <span>Score: 1 point(s)</span>
+                    <span>Score: {this.state.scorePlayer} point(s)</span>
                 </div>
                 <div className="Questions_pictures">
                     <img alt={this.state.nameActor} className={`Questions_pictures-actor ${this.state.urlImageMovie? 'Questions_pictures-actor-not-alone' : ''}`} src={this.state.urlImageActor}></img>
-                   
                     { 
-                    this.state.urlImageMovie ? 
-                        <img alt={this.state.movieName} className="Questions_pictures-movie" src={this.state.urlImageMovie}></img>
-                        : renderNothing
+                        this.state.urlImageMovie ? 
+                            <img alt={this.state.movieName} className="Questions_pictures-movie" src={this.state.urlImageMovie}></img>
+                            : renderNothing
                     }
-
                 </div>
                 <div className="Questions_question">
                     <span> Did <span className="Questions_question_colorText">{this.state.nameActor}</span> play </span>
