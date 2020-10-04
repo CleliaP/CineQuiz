@@ -1,6 +1,6 @@
 import React from 'react';
 
-import GameBoard from './app/components/Game-board.js'
+import GameBoard from './app/components/gameBoard.js'
 import './App.css';
 
 export class App extends React.Component {
