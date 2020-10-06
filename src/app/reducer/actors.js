@@ -11,9 +11,12 @@ const actorsReducer = (state=initialState,action) => {
           actors: action.payload[0].results
         }
     }
+    case "CLEAR_ACTORS":{
+      return state = []
+    }
     default: {
-		return state;
-	}
+      return state;
+    }
   }
 }
 

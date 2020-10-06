@@ -29,6 +29,9 @@ const actorReducer = (state=initialState,action) => {
         moviesActor: action.payload[0].cast
       }
     }
+    case "CLEAR_ACTOR":{
+      return state = []
+    }
 
     default: {
 		return state;

@@ -14,10 +14,9 @@ const moviesReducer = (state=initialState,action) => {
     case "CLEAR_MOVIES":{
       return state = []
     }
-    
     default: {
-		return state;
-	}
+      return state;
+    }
   }
 }
 

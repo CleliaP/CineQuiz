@@ -12,7 +12,7 @@ class Game extends React.Component {
 
     state = {
         minutes: 0,
-        seconds: 10,
+        seconds: 5
     }
 
     componentDidMount() {
@@ -47,6 +47,11 @@ class Game extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.clearActors()
+        this.props.clearMovies()
+    }
+
 
     render() {
         const { minutes, seconds} = this.state
@@ -59,9 +64,8 @@ class Game extends React.Component {
                 }
             </div>
             {
-              this.props.allMovies.length > 0 && this.props.allActors.length > 0 ?
-               <Questions></Questions> 
-               //<span>TOTO</span>
+              this.props.allMovies.length > 0 && this.props.allActors.length > 0 
+              ? <Questions></Questions>  
                 : renderNothing()
             }
             </div>
@@ -80,7 +84,9 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({
     getMovies: getMovies,
     getActors: getActors,
-    updateStatusPlayer: () => dispatch({type: "UPDATE_STATUS_PLAYER", payload: 'lose'})
+    updateStatusPlayer: () => dispatch({type: "UPDATE_STATUS_PLAYER", payload: 'lost'}),
+    clearMovies: ()=> dispatch({type:"CLEAR_MOVIES",payload:[]}),
+    clearActors: ()=> dispatch({type:"CLEAR_ACTORS",payload:[]})
     }, dispatch)
 }
 

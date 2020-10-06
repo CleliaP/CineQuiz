@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
 
 import GameOver from './gameOver'
 import Game from './game'
@@ -12,9 +11,9 @@ class GameBoard extends React.Component {
         return (
             <div className="GameBoard"> 
                 {   
-                    this.props.statusPlayer === "lose" 
-                    ? <GameOver></GameOver>
-                    : <Game></Game>
+                    this.props.statusPlayer === "game" 
+                    ? <Game></Game>
+                    : <GameOver></GameOver>
                 }
             </div>
         )

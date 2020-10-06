@@ -1,4 +1,6 @@
-const initialState = []
+const initialState = {
+    status: "game"
+}
 
 const playerReducer = (state=initialState,action) =>{
     switch(action.type){
