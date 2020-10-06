@@ -55,6 +55,7 @@ class Game extends React.Component {
 
     render() {
         const { minutes, seconds} = this.state
+        const {allMovies, allActors} = this.props
         return (
             <div className="Game"> 
             <div>
@@ -64,7 +65,7 @@ class Game extends React.Component {
                 }
             </div>
             {
-              this.props.allMovies.length > 0 && this.props.allActors.length > 0 
+              allMovies && allActors && allMovies.length > 0 && allActors.length > 0 
               ? <Questions></Questions>  
                 : renderNothing()
             }
