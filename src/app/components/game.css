@@ -1,0 +1,9 @@
+.Game {
+    position: absolute;
+    display: grid;
+    left: 50%;
+    top: 53%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    font-size: 22px;
+}

@@ -14,7 +14,7 @@ export const getMovies = () => {
 
 export const getActors = () => {
     return dispatch => {
-        return axios.get(`${API_BASE}/person/popular?api_key=${API_KEY}&language=en-US`)
+        return axios.get(`${API_BASE}/person/popular?api_key=${API_KEY}&language=en-US&page=3`)
         .then(response => response.data)
         .then(actor => dispatch({type:"GET_ALL_ACTORS_COMPLETED", payload:[actor]}))
         .catch((err) => dispatch({type:"GET_ALL_ACTORS_ERROR",payload:err}))
@@ -66,3 +66,4 @@ export const getImagesofMovie = (movie_id) => {
         .catch((err) => dispatch({type:"GET_IMAGE_MOVIE_ERROR",payload:err}))
     }
 }
+

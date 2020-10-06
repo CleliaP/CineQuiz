@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
+import * as CONSTANTS from '../../constants.js';
 import { getDetailActor, 
         getDetailMovie, 
         getImagesofMovie, 
@@ -9,25 +10,24 @@ import { getDetailActor,
 from '../actions/index';
 import getRandomInt from '../helpers/randomNumber'
 import { renderNothing } from '../helpers/renderNothing'
-
 import './questions.css'
-import * as CONSTANTS from '../../constants.js';
-const { BASE_URL_IMAGE_ACTOR } = CONSTANTS;
 
+const { BASE_URL_IMAGE_ACTOR } = CONSTANTS;
 
 class Questions extends React.Component {
 
    state = {
         rightAnswer: false,
-        scorePlayer:0
+        scorePlayer:0,
+        continueGame: this.props.statusPlayer !== "lost"
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.init()
     }
 
     init() {
-        if(this.props.allMovies.length > 0 && this.props.allActors.length > 0 ) {
+        if(this.props.allMovies.length > 0 && this.props.allActors.length > 0 && this.state.continueGame) {
             this.getRandomActor();
             this.getRandomMovie();
         }
@@ -36,15 +36,14 @@ class Questions extends React.Component {
     //function that is used to know if we have information about the actor
     getRandomActor = () => {
         const randomActorID = this.props.allActors[getRandomInt(this.props.allActors.length)].id;
-        this.props.getDetailActor(randomActorID).then(()=> {
-            if(this.props.statusActor !== "failed") {
-                this.setState({nameActor: this.props.actor.name})
-                this.getActorInformations(randomActorID)
-            }
-            else {
-                this.getRandomActor();
-            }
-        })
+        if(randomActorID) {
+            this.props.getDetailActor(randomActorID).then(()=> {
+                if(this.props.statusActor !== "failed" && this.state.continueGame) {
+                    this.setState({nameActor: this.props.actor.name})
+                    this.getActorInformations(randomActorID)
+                }
+            })
+        }
     }
 
     getActorInformations = (id) => {
@@ -70,9 +69,10 @@ class Questions extends React.Component {
     }
 
     getAnswer = () => {
-        this.state.actorMovies.map((i) => (i === this.state.movieId) === true ? 
-            this.setState({rightAnswer: true}) : null 
-        );
+        if(this.state.actorMovies) {
+            this.state.actorMovies.map((i) => (i === this.state.movieId) === true ? 
+            this.setState({rightAnswer: true}) : null);
+        }
     }
 
     handleClick = (e) => {
@@ -85,7 +85,8 @@ class Questions extends React.Component {
             }))
             this.props.updateScore(this.state.scorePlayer +1)
         }
-        this.init();
+        
+        if(this.props.statusPlayer !== "lost")  this.init();
     }
 
     render() {
@@ -114,8 +115,16 @@ class Questions extends React.Component {
                     }
                 </div>
                 <div className="Questions_question">
+                {
+                    this.props.actor ? 
                     <span> Did <span className="Questions_question_colorText">{this.state.nameActor}</span> play </span>
+                    : renderNothing()
+                }
+                {
+                    this.props.movie ? 
                     <span> in <span className="Questions_question_colorText "> {this.props.movie.title}</span> ? </span>
+                    : renderNothing()
+                }
                 </div>
                 <div className="Questions_buttons">
                     <button value={true} onClick={this.handleClick} className='Questions_button-T'>True</button>
@@ -127,7 +136,6 @@ class Questions extends React.Component {
 }
 
 const mapStateToProps= (state) => {
-    console.log(state)
     return{
         allMovies: state.movies.movies,
         allActors: state.movies.movies,
@@ -137,6 +145,7 @@ const mapStateToProps= (state) => {
         moviesActor: state.actor.moviesActor,
         movie: state.movie.movie,
         imageMovie: state.movie.imageMovie,
+        statusPlayer: state.statusPlayer.status
     }
 }
 
@@ -147,7 +156,7 @@ function mapDispatchToProps(dispatch){
     getImagesofMovie: getImagesofMovie,
     getImagesofActor: getImagesofActor,
     getMoviesOfActor: getMoviesOfActor,
-    updateScore: (question) => dispatch({type: "UPDATE_SCORE",payload:question})
+    updateScore: (score) => dispatch({type: "UPDATE_SCORE",payload:score})
     }, dispatch)
 }
 

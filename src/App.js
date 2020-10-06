@@ -9,9 +9,9 @@ import logo from './app/styles/img/logoCineQuiz.png'
 import './App.css';
 
 const store = createStore(reducers, (applyMiddleware(thunk)));
+
 export class App extends React.Component {
   render() {
-
     return (
       <Provider store={store}>
         <div className="App">
@@ -19,7 +19,9 @@ export class App extends React.Component {
             <span className="App-header_logo"><img src={logo} alt="LogoCineQuiz"></img></span>
             <span className="App-header_text">Clélia Pelleteret</span> 
           </header>
-          <GameBoard></GameBoard>
+          <div>
+            <GameBoard></GameBoard>
+          </div>
         </div>
       </Provider>
     );
