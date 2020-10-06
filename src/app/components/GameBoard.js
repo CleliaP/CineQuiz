@@ -1,5 +1,7 @@
 import React from 'react'
-import { getMoviesFromApi, getActorsFromApi} from '../service/api';
+import { connect } from "react-redux";
+import {bindActionCreators} from 'redux';
+import { getMovies, getActors } from '../actions/index';
 import Questions from './questions.js'
 
 import './gameBoard.css'
@@ -9,28 +11,20 @@ class GameBoard extends React.Component {
 
     state = {
         allMovies: [],
-        allPersons: []
+        allActors: []
     }
 
     componentWillMount(){
-        this.getAllMovie()
-        this.getAllPersons()
-    }
-
-    getAllMovie = () => {
-        getMoviesFromApi().then(movies => {this.setState({allMovies: movies.results})})
-    }
-
-    getAllPersons = () => {
-        getActorsFromApi().then(persons => this.setState({ allPersons: persons.results}))
+        this.props.getMovies()
+        this.props.getActors()
     }
 
     render() {
         return (
             <div className="GameBoard"> 
             {
-                this.state.allMovies.length > 0 && this.state.allPersons.length > 0 ?
-                <Questions allMovies= {this.state.allMovies} allPersons={this.state.allPersons}></Questions> 
+                this.props.allMovies.length > 0 && this.props.allActors.length > 0 ?
+                <Questions allMovies= {this.props.allMovies} allActors={this.props.allActors}></Questions> 
                 : null
             }
             </div>
@@ -38,4 +32,18 @@ class GameBoard extends React.Component {
     }
 }
 
-export default GameBoard
+const mapStateToProps= (state) => {
+    return{
+        allMovies: state.movies.movies,
+        allActors: state.movies.movies
+    }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    getMovies: getMovies,
+    getActors: getActors
+    }, dispatch)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(GameBoard);
