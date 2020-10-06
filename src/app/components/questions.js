@@ -18,15 +18,16 @@ class Questions extends React.Component {
 
    state = {
         rightAnswer: false,
-        scorePlayer:0
+        scorePlayer:0,
+        continueGame: true
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.init()
     }
 
     init() {
-        if(this.props.allMovies.length > 0 && this.props.allActors.length > 0 ) {
+        if(this.props.allMovies.length > 0 && this.props.allActors.length > 0) {
             this.getRandomActor();
             this.getRandomMovie();
         }
@@ -35,15 +36,18 @@ class Questions extends React.Component {
     //function that is used to know if we have information about the actor
     getRandomActor = () => {
         const randomActorID = this.props.allActors[getRandomInt(this.props.allActors.length)].id;
-        this.props.getDetailActor(randomActorID).then(()=> {
-            if(this.props.statusActor !== "failed") {
-                this.setState({nameActor: this.props.actor.name})
-                this.getActorInformations(randomActorID)
-            }
-            else {
-                this.getRandomActor();
-            }
-        })
+
+        if(randomActorID) {
+            this.props.getDetailActor(randomActorID).then(()=> {
+                if(this.props.statusActor !== "failed") {
+                    this.setState({nameActor: this.props.actor.name})
+                    this.getActorInformations(randomActorID)
+                }
+                else {
+                    this.getRandomActor();
+                }
+            })
+        }
     }
 
     getActorInformations = (id) => {
@@ -69,9 +73,10 @@ class Questions extends React.Component {
     }
 
     getAnswer = () => {
-        this.state.actorMovies.map((i) => (i === this.state.movieId) === true ? 
-            this.setState({rightAnswer: true}) : null 
-        );
+        if(this.state.actorMovies) {
+            this.state.actorMovies.map((i) => (i === this.state.movieId) === true ? 
+            this.setState({rightAnswer: true}) : null);
+        }
     }
 
     handleClick = (e) => {
@@ -84,7 +89,8 @@ class Questions extends React.Component {
             }))
             this.props.updateScore(this.state.scorePlayer +1)
         }
-        this.init();
+        
+        if(this.props.statusPlayer !== "lose")  this.init();
     }
 
     render() {
@@ -126,7 +132,6 @@ class Questions extends React.Component {
 }
 
 const mapStateToProps= (state) => {
-    console.log(state)
     return{
         allMovies: state.movies.movies,
         allActors: state.movies.movies,
@@ -136,6 +141,7 @@ const mapStateToProps= (state) => {
         moviesActor: state.actor.moviesActor,
         movie: state.movie.movie,
         imageMovie: state.movie.imageMovie,
+        statusPlayer: state.statusPlayer.status
     }
 }
 
@@ -146,7 +152,7 @@ function mapDispatchToProps(dispatch){
     getImagesofMovie: getImagesofMovie,
     getImagesofActor: getImagesofActor,
     getMoviesOfActor: getMoviesOfActor,
-    updateScore: (question) => dispatch({type: "UPDATE_SCORE",payload:question})
+    updateScore: (score) => dispatch({type: "UPDATE_SCORE",payload:score})
     }, dispatch)
 }
 
