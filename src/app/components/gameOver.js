@@ -6,7 +6,7 @@ import { getMovies, getActors } from '../actions/index';
 
 class GameOver extends React.Component {
 
-    componentWillMount() {
+    componentDidMount() {
         this.calculateHighestScore()
     }
 
