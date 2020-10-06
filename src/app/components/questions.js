@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
+import * as CONSTANTS from '../../constants.js';
 import { getDetailActor, 
         getDetailMovie, 
         getImagesofMovie, 
@@ -9,11 +10,9 @@ import { getDetailActor,
 from '../actions/index';
 import getRandomInt from '../helpers/randomNumber'
 import { renderNothing } from '../helpers/renderNothing'
-
 import './questions.css'
-import * as CONSTANTS from '../../constants.js';
-const { BASE_URL_IMAGE_ACTOR } = CONSTANTS;
 
+const { BASE_URL_IMAGE_ACTOR } = CONSTANTS;
 
 class Questions extends React.Component {
 
