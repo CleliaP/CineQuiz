@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from "react-redux";
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
+
 import { getMovies, getActors } from '../actions/index';
 import Questions from './questions.js'
+import { renderNothing } from '../helpers/renderNothing'
 
 import './gameBoard.css'
-
 
 class GameBoard extends React.Component {
 
@@ -25,7 +26,7 @@ class GameBoard extends React.Component {
             {
                 this.props.allMovies.length > 0 && this.props.allActors.length > 0 ?
                 <Questions allMovies= {this.props.allMovies} allActors={this.props.allActors}></Questions> 
-                : null
+                : renderNothing()
             }
             </div>
         )
