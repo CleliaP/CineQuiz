@@ -8,3 +8,4 @@
 * Movie and actor image on the quiz game
 ### Fixed
 * Add missing score processus
+* Add missing redux store
