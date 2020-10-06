@@ -1,11 +1,12 @@
 import React from 'react'
-
+import { connect } from "react-redux";
+import {bindActionCreators} from 'redux';
 import { getDetailActor, 
-        getMoviesOfActor, 
         getDetailMovie, 
+        getImagesofMovie, 
         getImagesofActor, 
-        getImagesofMovie } 
-from '../service/api';
+        getMoviesOfActor } 
+from '../actions/index';
 import getRandomInt from '../helpers/randomNumber'
 import { renderNothing } from '../helpers/renderNothing'
 
@@ -13,74 +14,58 @@ import './questions.css'
 import * as CONSTANTS from '../../constants.js';
 const { BASE_URL_IMAGE_ACTOR } = CONSTANTS;
 
+
 class Questions extends React.Component {
 
    state = {
-        idActor: null,
-        nameActor: null,
-        actorMovies: [],
-        movieName: null,
-        movieId: null,
         rightAnswer: false,
-        urlImageActor: null,
-        urlImageMovie: null,
         scorePlayer:0
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.init()
     }
 
     init() {
-        if(this.props.allMovies.length > 0 && this.props.allPersons.length > 0 ) {
-            this.getActorInformations();
+        if(this.props.allMovies.length > 0 && this.props.allActors.length > 0 ) {
+            this.getRandomActor();
             this.getRandomMovie();
         }
     }
 
-    getActorInformations = () => {
-        const randomActorID = this.props.allPersons[getRandomInt(this.props.allPersons.length)];
-        
-        if(randomActorID) {
+    //function that is used to know if we have information about the actor
+    getRandomActor = () => {
+        const randomActorID = this.props.allActors[getRandomInt(this.props.allActors.length)].id;
+        this.props.getDetailActor(randomActorID).then(()=> {
+            if(this.props.statusActor !== "failed") {
+                this.setState({nameActor: this.props.actor.name})
+                this.getActorInformations(randomActorID)
+            }
+            else {
+                this.getRandomActor();
+            }
+        })
+    }
 
-            const idActor = randomActorID.id
+    getActorInformations = (id) => {
+        if(id) {
+            this.props.getImagesofActor(id)
 
-            getDetailActor(idActor).then(data => {
-                this.setState({ nameActor: data.name});
-            })
-
-            getMoviesOfActor(idActor).then(data => {
+            this.props.getMoviesOfActor(id).then(()=> {
                 const listIdMovies = [];
-                if (data.cast) {
-                    if(data.cast.length > 1) data.cast.map(el => listIdMovies.push(el.id));
-                    if(data.cast.length === 1) listIdMovies.push(data.cast[0].id)
-                    this.setState({ actorMovies: listIdMovies
-                });
-                }
-            }) 
-            getImagesofActor(idActor).then(data => {
-                const url = BASE_URL_IMAGE_ACTOR + data.profiles[0].file_path
-                this.setState({urlImageActor: url})
+                if(this.props.moviesActor.length > 1) this.props.moviesActor.map(el => listIdMovies.push(el.id));
+                if(this.props.moviesActor.length === 1) listIdMovies.push(this.props.moviesActor[0].id)
+                this.setState({ actorMovies: listIdMovies})
             })
-   
         } ;
     }
 
     getRandomMovie = () => {
         const randomMovie = this.props.allMovies[getRandomInt(this.props.allMovies.length)];
-        if(randomMovie) {
+         if(randomMovie) {
             const movieId = randomMovie.id;
-            getDetailMovie(movieId).then(data => {
-                this.setState({movieId: movieId})
-                this.setState({movieName: data.title})
-            });
-
-            getImagesofMovie(movieId).then(data => {
-                if(data.posters.length > 0 ) {
-                    const url = BASE_URL_IMAGE_ACTOR + data.posters[0].file_path
-                    this.setState({urlImageMovie: url})
-                } 
-            })
+            this.props.getDetailMovie(movieId)
+            this.props.getImagesofMovie(movieId)
         }
     }
 
@@ -96,31 +81,41 @@ class Questions extends React.Component {
         
         if (String(this.state.rightAnswer) === e.target.value) {
             this.setState(prevState => ({
-                scorePlayer: prevState.scorePlayer +1
-            }));
+                scorePlayer: prevState.scorePlayer + 1
+            }))
+            this.props.updateScore(this.state.scorePlayer +1)
         }
-
-        this.setState({urlImageMovie: null})
         this.init();
     }
 
     render() {
+        const { imageMovie, imageActor } = this.props
         return (
             <div className="Questions">
                 <div className="Questions_score">
                     <span>Score: {this.state.scorePlayer} point(s)</span>
                 </div>
                 <div className="Questions_pictures">
-                    <img alt={this.state.nameActor} className={`Questions_pictures-actor ${this.state.urlImageMovie? 'Questions_pictures-actor-not-alone' : ''}`} src={this.state.urlImageActor}></img>
+                    {
+                        imageActor ? 
+                        <img alt={this.state.nameActor} 
+                            className={`Questions_pictures-actor ${imageMovie ? 'Questions_pictures-actor-not-alone' : ''}`}
+                            src={BASE_URL_IMAGE_ACTOR + imageActor}>
+                        </img>
+                        : renderNothing()
+                    }
                     { 
-                        this.state.urlImageMovie ? 
-                            <img alt={this.state.movieName} className="Questions_pictures-movie" src={this.state.urlImageMovie}></img>
-                            : renderNothing
+                        imageMovie && imageMovie.file_path ? 
+                            <img alt={this.state.movieName} 
+                                className="Questions_pictures-movie" 
+                                src={BASE_URL_IMAGE_ACTOR + imageMovie.file_path }>
+                            </img>
+                            : renderNothing()
                     }
                 </div>
                 <div className="Questions_question">
                     <span> Did <span className="Questions_question_colorText">{this.state.nameActor}</span> play </span>
-                    <span> in <span className="Questions_question_colorText "> {this.state.movieName}</span> ? </span>
+                    <span> in <span className="Questions_question_colorText "> {this.props.movie.title}</span> ? </span>
                 </div>
                 <div className="Questions_buttons">
                     <button value={true} onClick={this.handleClick} className='Questions_button-T'>True</button>
@@ -129,9 +124,32 @@ class Questions extends React.Component {
             </div>
         )
     }
-
-
-
 }
 
-export default Questions
+const mapStateToProps= (state) => {
+    console.log(state)
+    return{
+        allMovies: state.movies.movies,
+        allActors: state.movies.movies,
+        actor: state.actor.actor,
+        statusActor: state.actor.status,
+        imageActor: state.actor.imageActor,
+        moviesActor: state.actor.moviesActor,
+        movie: state.movie.movie,
+        imageMovie: state.movie.imageMovie,
+    }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    getDetailActor: getDetailActor,
+    getDetailMovie: getDetailMovie,
+    getImagesofMovie: getImagesofMovie,
+    getImagesofActor: getImagesofActor,
+    getMoviesOfActor: getMoviesOfActor,
+    updateScore: (question) => dispatch({type: "UPDATE_SCORE",payload:question})
+    }, dispatch)
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Questions);
