@@ -1,4 +1,7 @@
-const initialState = 0
+const initialState = {
+    score: 0,
+    highScore: 0
+}
 
 const scoreReducer = (state=initialState,action) =>{
     switch(action.type){
@@ -11,7 +14,14 @@ const scoreReducer = (state=initialState,action) =>{
             return{
                 ...state,
                 score: action.payload,
-                status:'update'
+                status:'updateScore'
+            }
+        }
+        case "UPDATE_HIGHEST_SCORE": {
+            return{
+                ...state,
+                highScore: action.payload,
+                status:'updateHighscore'
             }
         }
         case "CLEAR_SCORE": {
