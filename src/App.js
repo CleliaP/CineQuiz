@@ -10,8 +10,7 @@ import './App.css';
 
 const store = createStore(reducers, (applyMiddleware(thunk)));
 
-export class App extends React.Component {
-  render() {
+const App= () => {
     return (
       <Provider store={store}>
         <div className="App">
@@ -25,7 +24,6 @@ export class App extends React.Component {
         </div>
       </Provider>
     );
-  }
 }
 
 export default App;
