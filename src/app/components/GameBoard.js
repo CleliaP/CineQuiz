@@ -2,32 +2,20 @@ import React from 'react'
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
-import { getMovies, getActors } from '../actions/index';
-import Questions from './questions.js'
-import { renderNothing } from '../helpers/renderNothing'
-
+import GameOver from './gameOver'
+import Game from './game'
 import './gameBoard.css'
 
 class GameBoard extends React.Component {
 
-    state = {
-        allMovies: [],
-        allActors: []
-    }
-
-    componentWillMount(){
-        this.props.getMovies()
-        this.props.getActors()
-    }
-
     render() {
         return (
             <div className="GameBoard"> 
-            {
-                this.props.allMovies.length > 0 && this.props.allActors.length > 0 ?
-                <Questions allMovies= {this.props.allMovies} allActors={this.props.allActors}></Questions> 
-                : renderNothing()
-            }
+                {   
+                    this.props.statusPlayer === "lose" 
+                    ? <GameOver></GameOver>
+                    : <Game></Game>
+                }
             </div>
         )
     }
@@ -35,16 +23,8 @@ class GameBoard extends React.Component {
 
 const mapStateToProps= (state) => {
     return{
-        allMovies: state.movies.movies,
-        allActors: state.movies.movies
+        statusPlayer: state.statusPlayer.status
     }
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({
-    getMovies: getMovies,
-    getActors: getActors
-    }, dispatch)
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(GameBoard);
+export default connect(mapStateToProps)(GameBoard);

@@ -66,3 +66,4 @@ export const getImagesofMovie = (movie_id) => {
         .catch((err) => dispatch({type:"GET_IMAGE_MOVIE_ERROR",payload:err}))
     }
 }
+
