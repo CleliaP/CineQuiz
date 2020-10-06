@@ -19,7 +19,7 @@ class Questions extends React.Component {
    state = {
         rightAnswer: false,
         scorePlayer:0,
-        continueGame: true
+        continueGame: this.props.statusPlayer !== "lost"
     }
 
     componentDidMount(){
@@ -27,7 +27,7 @@ class Questions extends React.Component {
     }
 
     init() {
-        if(this.props.allMovies.length > 0 && this.props.allActors.length > 0) {
+        if(this.props.allMovies.length > 0 && this.props.allActors.length > 0 && this.state.continueGame) {
             this.getRandomActor();
             this.getRandomMovie();
         }
@@ -36,15 +36,11 @@ class Questions extends React.Component {
     //function that is used to know if we have information about the actor
     getRandomActor = () => {
         const randomActorID = this.props.allActors[getRandomInt(this.props.allActors.length)].id;
-
         if(randomActorID) {
             this.props.getDetailActor(randomActorID).then(()=> {
-                if(this.props.statusActor !== "failed") {
+                if(this.props.statusActor !== "failed" && this.state.continueGame) {
                     this.setState({nameActor: this.props.actor.name})
                     this.getActorInformations(randomActorID)
-                }
-                else {
-                    this.getRandomActor();
                 }
             })
         }
@@ -90,7 +86,7 @@ class Questions extends React.Component {
             this.props.updateScore(this.state.scorePlayer +1)
         }
         
-        if(this.props.statusPlayer !== "lose")  this.init();
+        if(this.props.statusPlayer !== "lost")  this.init();
     }
 
     render() {
@@ -119,8 +115,16 @@ class Questions extends React.Component {
                     }
                 </div>
                 <div className="Questions_question">
+                {
+                    this.props.actor ? 
                     <span> Did <span className="Questions_question_colorText">{this.state.nameActor}</span> play </span>
+                    : renderNothing()
+                }
+                {
+                    this.props.movie ? 
                     <span> in <span className="Questions_question_colorText "> {this.props.movie.title}</span> ? </span>
+                    : renderNothing()
+                }
                 </div>
                 <div className="Questions_buttons">
                     <button value={true} onClick={this.handleClick} className='Questions_button-T'>True</button>

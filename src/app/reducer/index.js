@@ -4,7 +4,8 @@ import movieReducer from './movie.js';
 import actorsReducer from './actors.js';
 import actorReducer from './actor.js';
 import scoreReducer from './score.js';
-import playerReducer from './player.js'
+import playerReducer from './player.js';
+import gameReducer from './game.js'
 
 const rootReducer = combineReducers({
 	movies: moviesReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
 	actors: actorsReducer,
 	actor: actorReducer,
 	score: scoreReducer, 
-	statusPlayer: playerReducer
+	statusPlayer: playerReducer,
+	game: gameReducer
 });
 
 export default rootReducer;
