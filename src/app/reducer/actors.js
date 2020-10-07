@@ -11,6 +11,12 @@ const actorsReducer = (state=initialState,action) => {
           actors: action.payload[0].results
         }
     }
+    case "UPDATE_ALL_ACTORS": {
+      return{
+          ...state,
+          actors: action.payload
+      }
+    }
     case "CLEAR_ACTORS":{
       return state = []
     }

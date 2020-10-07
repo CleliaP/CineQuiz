@@ -73,17 +73,10 @@ class Questions extends React.Component {
         }
     }
 
-    getAnswer = () => {
-        if(this.state.actorMovies) {
-            this.state.actorMovies.map((i) => (i === this.state.movieId) === true ? 
-            this.setState({rightAnswer: true}) : null);
-        }
-    }
-
     handleClick = (e) => {
         this.getAnswer();
         e.preventDefault();
-        
+
         if (String(this.state.rightAnswer) === e.target.value) {
             this.setState(prevState => ({
                 scorePlayer: prevState.scorePlayer + 1
@@ -94,11 +87,20 @@ class Questions extends React.Component {
         if(this.props.statusPlayer !== "lost")  this.init()
     }
 
+    getAnswer = () => {
+        if(this.state.actorMovies) {
+            this.state.actorMovies.map((i) => i === this.props.movie.id ? 
+            this.setState({rightAnswer: true}) : null);
+        }
+    }
+
+
     render() {
         const { imageMovie, imageActor } = this.props
         return (
             <div className="Questions">
                 <div className="Questions_score">
+                {this.props.allActors.length}
                     <span>Score: {this.state.scorePlayer} 
                         {
                             this.state.scorePlayer > 0 
@@ -149,7 +151,7 @@ class Questions extends React.Component {
 const mapStateToProps= (state) => {
     return{
         allMovies: state.movies.movies,
-        allActors: state.movies.movies,
+        allActors: state.actors.actors,
         actor: state.actor.actor,
         statusActor: state.actor.status,
         imageActor: state.actor.imageActor,
