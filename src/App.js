@@ -10,7 +10,17 @@ import './App.css';
 
 const store = createStore(reducers, (applyMiddleware(thunk)));
 
-const App= () => {
+class App extends React.Component {
+
+  state = {
+    beginGame: false
+  }
+
+  changeBeginGameValue= () =>{
+    this.setState({beginGame: true})
+  }
+  
+  render () {
     return (
       <Provider store={store}>
         <div className="App">
@@ -18,12 +28,24 @@ const App= () => {
             <span className="App-header_logo"><img src={logo} alt="LogoCineQuiz"></img></span>
             <span className="App-header_text">Clélia Pelleteret</span> 
           </header>
-          <div>
-            <GameBoard></GameBoard>
+          <div className="App-body">
+          {
+            this.state.beginGame 
+            ? <GameBoard></GameBoard>
+            : <div>
+                <span className="App-body_logo"><img src={logo} alt="LogoCineQuiz"></img></span>
+                <span className="App-body_rules">
+                  Welcome to the quizz ! You'll be asked a series of "Yes or No" questions. 
+                  Answer as many as you can in the allowed time ! Good luck !
+                </span>
+                <button className="App-body_button" onClick={this.changeBeginGameValue}>Start</button>
+              </div>
+          }
           </div>
         </div>
       </Provider>
-    );
+    )
+  }
 }
 
 export default App;

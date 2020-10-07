@@ -17,7 +17,7 @@ class Game extends React.Component {
 
     componentDidMount() {
         this.props.getMovies()
-        this.props.getActors()
+        this.props.getActors() 
 
         //initilize the timer
         this.myInterval = setInterval(() => {
@@ -66,7 +66,7 @@ class Game extends React.Component {
             </div>
             {
               allMovies && allActors && allMovies.length > 0 && allActors.length > 0 
-              ? <Questions></Questions>  
+                ? <Questions></Questions>  
                 : renderNothing()
             }
             </div>

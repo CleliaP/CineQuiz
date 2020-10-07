@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-import { getMovies, getActors } from '../actions/index';
 
 
 class GameOver extends React.Component {
@@ -12,8 +11,7 @@ class GameOver extends React.Component {
 
     retry = (e) => {
         e.preventDefault();
-        this.props.getMovies()
-        this.props.getActors().then(() => this.props.updateStatusPlayer())
+        this.props.updateStatusPlayer()
     }
 
     calculateHighestScore() {
@@ -41,8 +39,6 @@ const mapStateToProps= (state) => {
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    getMovies: getMovies,
-    getActors: getActors,
     updateStatusPlayer: () => dispatch({type: "UPDATE_STATUS_PLAYER", payload: 'game'}),
     updateHighestScore: (payload) => dispatch({type: "UPDATE_HIGHEST_SCORE", payload: payload }),
     }, dispatch)
