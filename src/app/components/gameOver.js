@@ -1,6 +1,9 @@
 import React from 'react'
-import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
+import { connect } from "react-redux"
+import { bindActionCreators } from 'redux'
+
+import './gameOver.css'
+import '../styles/global.css'
 
 
 class GameOver extends React.Component {
@@ -22,9 +25,23 @@ class GameOver extends React.Component {
         return(
             <div className="GameOver">
                 <h1>Game Over</h1>
-                <span>Score: {this.props.score} </span>
-                <span>HighScore: {this.props.highScore} </span>
-                <button onClick={this.retry}>Retry</button>
+                <span className="GameOver-score">Score: 
+                <span className="text-bold text-orange"> {this.props.score} </span>
+                    {
+                        this.props.score > 1 
+                        ? <span> points</span>
+                        : <span> point</span>
+                    }
+                </span>
+                <span className="GameOver-highScore">HighScore: 
+                <span className="text-bold text-orange"> {this.props.highScore} </span>
+                    {
+                        this.props.highScore > 1 
+                        ? <span> points</span>
+                        : <span> point</span>
+                    }
+                </span>
+                <button className="button GameOver-button" onClick={this.retry}>Try again</button>
             </div>
         )
     }

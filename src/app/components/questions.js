@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
+
 import * as CONSTANTS from '../../constants.js';
 import { getDetailActor, 
         getDetailMovie, 
@@ -8,9 +9,13 @@ import { getDetailActor,
         getImagesofActor, 
         getMoviesOfActor } 
 from '../actions/index';
+
 import getRandomInt from '../helpers/randomNumber'
 import { renderNothing } from '../helpers/renderNothing'
+
 import './questions.css'
+import '../styles/global.css'
+import noImage from '../styles/img/noImage.png'
 
 const { BASE_URL_IMAGE_ACTOR } = CONSTANTS;
 
@@ -86,7 +91,7 @@ class Questions extends React.Component {
             this.props.updateScore(this.state.scorePlayer +1)
         }
         
-        if(this.props.statusPlayer !== "lost")  this.init();
+        if(this.props.statusPlayer !== "lost")  this.init()
     }
 
     render() {
@@ -94,41 +99,47 @@ class Questions extends React.Component {
         return (
             <div className="Questions">
                 <div className="Questions_score">
-                    <span>Score: {this.state.scorePlayer} point(s)</span>
+                    <span>Score: {this.state.scorePlayer} 
+                        {
+                            this.state.scorePlayer > 0 
+                            ? <span> points</span>
+                            : <span> point</span>
+                        }
+                    </span>
                 </div>
                 <div className="Questions_pictures">
                     {
-                        imageActor ? 
-                        <img alt={this.state.nameActor} 
-                            className={`Questions_pictures-actor ${imageMovie ? 'Questions_pictures-actor-not-alone' : ''}`}
+                        imageActor 
+                        ? <img alt={this.state.nameActor} 
+                            className='Questions_pictures-actor'
                             src={BASE_URL_IMAGE_ACTOR + imageActor}>
                         </img>
-                        : renderNothing()
+                        : <img alt="noImageActor" src={noImage} className='noImage-actor'></img>
                     }
                     { 
-                        imageMovie && imageMovie.file_path ? 
-                            <img alt={this.state.movieName} 
-                                className="Questions_pictures-movie" 
-                                src={BASE_URL_IMAGE_ACTOR + imageMovie.file_path }>
-                            </img>
-                            : renderNothing()
+                        imageMovie && imageMovie.file_path 
+                        ? <img alt={this.state.movieName} 
+                            className="Questions_pictures-movie" 
+                            src={BASE_URL_IMAGE_ACTOR + imageMovie.file_path }>
+                        </img>
+                        : <img alt="noImageMovie" src={noImage} className='noImage-movie'></img>
                     }
                 </div>
                 <div className="Questions_question">
                 {
-                    this.props.actor ? 
-                    <span> Did <span className="Questions_question_colorText">{this.state.nameActor}</span> play </span>
+                    this.props.actor 
+                    ? <span> Did <span className="text-bold text-orange">{this.state.nameActor}</span> play </span>
                     : renderNothing()
                 }
                 {
-                    this.props.movie ? 
-                    <span> in <span className="Questions_question_colorText "> {this.props.movie.title}</span> ? </span>
+                    this.props.movie 
+                    ? <span> in <span className="text-bold text-orange"> {this.props.movie.title}</span> ? </span>
                     : renderNothing()
                 }
                 </div>
                 <div className="Questions_buttons">
-                    <button value={true} onClick={this.handleClick} className='Questions_button-T'>True</button>
-                    <button value={false} onClick={this.handleClick} className='Questions_button-F'>False</button>
+                    <button value={true} onClick={this.handleClick} className='Questions_button-T button'>True</button>
+                    <button value={false} onClick={this.handleClick} className='Questions_button-F button'>False</button>
                 </div>
             </div>
         )
@@ -159,6 +170,5 @@ function mapDispatchToProps(dispatch){
     updateScore: (score) => dispatch({type: "UPDATE_SCORE",payload:score})
     }, dispatch)
 }
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(Questions);
