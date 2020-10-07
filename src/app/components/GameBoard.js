@@ -1,8 +1,9 @@
 import React from 'react'
-import { connect } from "react-redux";
+import { connect } from "react-redux"
 
 import GameOver from './gameOver'
 import Game from './game'
+
 import './gameBoard.css'
 
 class GameBoard extends React.Component {

@@ -2,11 +2,13 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-
 import reducers from './app/reducer/index'
+
 import GameBoard from './app/components/GameBoard.js'
+
 import logo from './app/styles/img/logoCineQuiz.png'
-import './App.css';
+import './App.css'
+import './app/styles/global.css'
 
 const store = createStore(reducers, (applyMiddleware(thunk)));
 

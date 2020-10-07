@@ -1,0 +1,31 @@
+.button {
+    background-color:#f9c432;
+	border-radius:6px;
+	border:1px solid #f9c432;
+	display:inline-block;
+	cursor:pointer;
+	columns: #000000;
+	font-family:Arial;
+	font-size:16px;
+	font-weight:bold;
+	padding:12px 23px;
+	text-decoration:none;
+	margin-bottom: 2%;
+}
+
+.button:hover {
+    background:linear-gradient(to bottom, #d89300 5%, #d89300 100%);
+	background-color:#d89300; 
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.text-orange {
+    color: #d89300;
+}
+
+.pt5 {
+    padding-top: 5%;
+}

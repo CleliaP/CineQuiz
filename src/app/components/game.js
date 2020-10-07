@@ -58,17 +58,15 @@ class Game extends React.Component {
         const {allMovies, allActors} = this.props
         return (
             <div className="Game"> 
-            <div>
-                { minutes === 0 && seconds === 0
-                ? renderNothing()
-                : <h1>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
+                {   minutes === 0 && seconds === 0
+                    ? renderNothing()
+                    : <h1>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
                 }
-            </div>
-            {
-              allMovies && allActors && allMovies.length > 0 && allActors.length > 0 
-                ? <Questions></Questions>  
-                : renderNothing()
-            }
+                {
+                allMovies && allActors && allMovies.length > 0 && allActors.length > 0 
+                    ? <Questions></Questions>  
+                    : renderNothing()
+                }
             </div>
         )
     }
