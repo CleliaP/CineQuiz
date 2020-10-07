@@ -12,6 +12,12 @@ const moviesReducer = (state=initialState,action) => {
             statue: "complete"
         }
     }
+    case "UPDATE_ALL_MOVIES":{
+        return{
+          ...state,
+          movies: action.payload
+      }
+    }
     case "CLEAR_MOVIES":{
       return state = []
     }
