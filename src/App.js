@@ -1,9 +1,9 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import React from 'react'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
-import reducers from './app/reducer/index';
+import reducers from './app/reducer/index'
 import GameBoard from './app/components/GameBoard.js'
 import logo from './app/styles/img/logoCineQuiz.png'
 import './App.css';
@@ -32,14 +32,16 @@ class App extends React.Component {
           {
             this.state.beginGame 
             ? <GameBoard></GameBoard>
-            : <div>
-                <span className="App-body_logo"><img src={logo} alt="LogoCineQuiz"></img></span>
-                <span className="App-body_rules">
-                  Welcome to the quizz ! You'll be asked a series of "Yes or No" questions. 
-                  Answer as many as you can in the allowed time ! Good luck !
-                </span>
-                <button className="App-body_button" onClick={this.changeBeginGameValue}>Start</button>
-              </div>
+            : <>
+                <div className="App-body_logo"><img src={logo} alt="LogoCineQuiz"></img></div>
+                <div className="App-body_rules">
+                   <h2> Welcome to the quizz ! </h2>
+                  <span className="pt5"> You'll be asked a series of <span className="text-bold">"Yes or No"</span> questions.</span>
+                  <span className="pt5">Answer as many as you can in the allowed time ! </span>
+                  <span className="pt5">Good luck !</span>
+                </div>
+                <button className="App-body_button" onClick={this.changeBeginGameValue}>Let's Start</button>
+              </>
           }
           </div>
         </div>
