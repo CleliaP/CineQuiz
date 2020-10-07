@@ -100,7 +100,6 @@ class Questions extends React.Component {
         return (
             <div className="Questions">
                 <div className="Questions_score">
-                {this.props.allActors.length}
                     <span>Score: {this.state.scorePlayer} 
                         {
                             this.state.scorePlayer > 0 
