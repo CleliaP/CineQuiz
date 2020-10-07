@@ -1,7 +1,16 @@
+html, body{width:100%;height:100%;}
+
 .App {
+    position:absolute;
+    z-index:300;
+    left:0;
+    top:0;
     height: 100%;
     width: 100%;
     text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 18px;
+    background-image: url('./app/styles/img/films.jpeg');
 }
   
 .App-header {
@@ -22,7 +31,7 @@
 }
 
 .App-header_logo > img {
-    height: 90px;
+    height: 60px;
 }
 
 .App-header_text {
@@ -31,4 +40,54 @@
     font-weight: 600;
 }
 
+.App-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin-left: 24%;
+    margin-top: 3%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 3px 3px 22px 0px rgba(0,0,0,0.75);
+}
+
+.App-body_deco > img{
+    width: 70px;
+}
+
+.App-body_logo {
+    margin-top: 5%;
+}
+
+.App-body_rules {
+    margin-bottom: 5%;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+.App-body_button {
+    background-color: #f9c432;
+    border-radius: 6px;
+    border: 1px solid #f9c432;
+    display: inline-block;
+    cursor: pointer;
+    color: #000000;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 23px;
+    text-decoration: none;
+    margin-bottom: 3%;
+    margin-top: 2%;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.pt5 {
+    padding-top: 5%;
+}
 
