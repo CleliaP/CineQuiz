@@ -8,6 +8,8 @@
 * Movie and actor image on the quiz game
 * Create Welcome page 
 * Add css for the App
+### Changed
+* Change README text
 ### Fixed
 * Add missing score processus
 * Add missing redux store
