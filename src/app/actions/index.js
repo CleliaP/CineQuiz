@@ -3,20 +3,21 @@ import axios from 'axios'
 import * as CONSTANTS from '../../constants.js'
 const { API_BASE, API_KEY } = CONSTANTS
 
-export const getMovies = () => {
+
+export const getMovies = (page) => {
     return dispatch => {
-        return axios.get(`${API_BASE}/movie/popular?api_key=${API_KEY}&language=en-US`)
+        return axios.get(`${API_BASE}/movie/popular?api_key=${API_KEY}&language=en-US${page}`)
         .then(response => response.data)
-        .then(movie => dispatch({type:"GET_ALL_MOVIES_COMPLETED", payload:[movie]}))
+        .then(movie => dispatch({type:"GET_ALL_MOVIES_COMPLETED", payload: [movie]}))
         .catch((err) => dispatch({type:"GET_ALL_MOVIES_ERROR",payload:err}))
     }
 }
 
-export const getActors = () => {
+export const getActors = (page) => {
     return dispatch => {
-        return axios.get(`${API_BASE}/person/popular?api_key=${API_KEY}&language=en-US&page=3`)
+        return axios.get(`${API_BASE}/person/popular?api_key=${API_KEY}&language=en-US&page=${page}`)
         .then(response => response.data)
-        .then(actor => dispatch({type:"GET_ALL_ACTORS_COMPLETED", payload:[actor]}))
+        .then(actor => dispatch({type:"GET_ALL_ACTORS_COMPLETED", payload: [actor]}))
         .catch((err) => dispatch({type:"GET_ALL_ACTORS_ERROR",payload:err}))
     }
 }
@@ -31,7 +32,6 @@ export const getDetailActor = (actor_id) => {
 }
 
 export const getMoviesOfActor = (actor_id) => {
-    actor_id = 581392
     return dispatch => {
         return axios.get(`${API_BASE}/person/${actor_id}/movie_credits?api_key=${API_KEY}&language=en-US`)
         .then(response => response.data)
