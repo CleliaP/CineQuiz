@@ -3,9 +3,9 @@ import axios from 'axios'
 import * as CONSTANTS from '../../constants.js'
 const { API_BASE, API_KEY } = CONSTANTS
 
-export const getMovies = (page) => {
+export const getMovies = () => {
     return dispatch => {
-        return axios.get(`${API_BASE}/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`)
+        return axios.get(`${API_BASE}/movie/popular?api_key=${API_KEY}&language=en-US`)
         .then(response => response.data)
         .then(movie => dispatch({type:"GET_ALL_MOVIES_COMPLETED", payload:[movie]}))
         .catch((err) => dispatch({type:"GET_ALL_MOVIES_ERROR",payload:err}))
