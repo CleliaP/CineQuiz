@@ -8,7 +8,8 @@ const moviesReducer = (state=initialState,action) => {
     case "GET_ALL_MOVIES_COMPLETED":{
         return{
             ...state,
-            movies: action.payload[0].results
+            movies: action.payload[0].results,
+            statue: "complete"
         }
     }
     case "CLEAR_MOVIES":{

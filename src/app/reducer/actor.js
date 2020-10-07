@@ -26,7 +26,8 @@ const actorReducer = (state=initialState,action) => {
     case "GET_MOVIES_ACTOR_COMPLETED": {
       return{
         ...state,
-        moviesActor: action.payload[0].cast
+        moviesActor: action.payload[0].cast,
+        status:'complete'
       }
     }
     case "CLEAR_ACTOR":{

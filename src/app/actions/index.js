@@ -1,7 +1,7 @@
 
-import axios from 'axios';
-import * as CONSTANTS from '../../constants.js';
-const { API_BASE, API_KEY } = CONSTANTS;
+import axios from 'axios'
+import * as CONSTANTS from '../../constants.js'
+const { API_BASE, API_KEY } = CONSTANTS
 
 export const getMovies = (page) => {
     return dispatch => {
