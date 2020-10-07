@@ -111,7 +111,10 @@ function mapDispatchToProps(dispatch){
     updateAllActors: (payload) => dispatch({type: "UPDATE_ALL_ACTORS", payload: payload}),
     updateAllMovies: (payload) => dispatch({type: "UPDATE_ALL_MOVIES", payload: payload}),
     clearMovies: ()=> dispatch({type:"CLEAR_MOVIES",payload:[]}),
+<<<<<<< HEAD
     clearMovie: ()=> dispatch({type:"CLEAR_MOVIE",payload:[]}),
+=======
+>>>>>>> feat(*): Bonus with save the HighScore between sessions
     clearActors: ()=> dispatch({type:"CLEAR_ACTORS",payload:[]}),
     clearActor: ()=> dispatch({type:"CLEAR_ACTOR",payload:[]})
     }, dispatch)

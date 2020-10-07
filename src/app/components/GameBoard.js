@@ -7,12 +7,11 @@ import Game from './game'
 import './gameBoard.css'
 
 class GameBoard extends React.Component {
-
     render() {
         return (
             <div className="GameBoard"> 
                 {   
-                    this.props.statusPlayer === "game" 
+                    this.props.statusPlayer === "game"
                     ? <Game></Game>
                     : <GameOver></GameOver>
                 }
