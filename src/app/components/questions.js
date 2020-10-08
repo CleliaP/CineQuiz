@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
@@ -19,7 +19,7 @@ import noImage from '../styles/img/noImage.png'
 
 const { BASE_URL_IMAGE_ACTOR } = CONSTANTS;
 
-class Questions extends React.Component {
+class Questions extends Component {
 
    state = {
         rightAnswer: false,

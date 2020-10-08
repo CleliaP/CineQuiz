@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
@@ -8,11 +8,11 @@ import { renderNothing } from '../helpers/renderNothing'
 
 import './game.css'
 
-class Game extends React.Component {
+class Game extends Component {
 
     state = {
-        minutes: 0,
-        seconds: 3,
+        minutes: 1,
+        seconds: 0,
         arrayActors: [],
         arrayMovies: []
     }

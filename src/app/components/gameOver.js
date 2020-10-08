@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from "react-redux"
 import { bindActionCreators } from 'redux'
 
@@ -6,7 +6,7 @@ import './gameOver.css'
 import '../styles/global.css'
 
 
-class GameOver extends React.Component {
+class GameOver extends Component {
 
     componentDidMount() {
         this.calculateHighestScore()
