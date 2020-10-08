@@ -3,7 +3,6 @@ import { connect } from "react-redux"
 
 import GameOver from './gameOver'
 import Game from './game'
-
 import './gameBoard.css'
 
 class GameBoard extends Component {
@@ -11,7 +10,7 @@ class GameBoard extends Component {
         return (
             <div className="GameBoard"> 
                 {   
-                    this.props.statusPlayer === "game"
+                    this.props.statusPlayer === "game" 
                     ? <Game></Game>
                     : <GameOver></GameOver>
                 }
