@@ -16,7 +16,7 @@ export const SocialMediaButtons= (props) => {
     return (
         <div className="SocialMediaButtons">
             <FacebookShareButton
-                url={"http://192.168.1.28:5000/"}
+                url={"http://192.168.1.28:5000"}
                 quote={text}
                 hashtag="#cineQuiz"
                 className="SocialMediaButtons-button"
@@ -24,7 +24,7 @@ export const SocialMediaButtons= (props) => {
                 <FacebookIcon size={36} />
             </FacebookShareButton>
             <TwitterShareButton
-                url={"http://192.168.1.28:5000/"}
+                url={"http://192.168.1.28:5000"}
                 quote={text}
                 hashtag="#cineQuiz"
                 className="SocialMediaButtons-button"
@@ -32,7 +32,7 @@ export const SocialMediaButtons= (props) => {
                 <TwitterIcon size={36} />
             </TwitterShareButton>
             <WhatsappShareButton
-                url={"http://192.168.1.28:5000/"}
+                url={"http://192.168.1.28:5000"}
                 quote={text}
                 hashtag="#cineQuiz"
                 className="SocialMediaButtons-button"
