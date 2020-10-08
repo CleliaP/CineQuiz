@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from "react-redux"
 import { bindActionCreators } from 'redux'
 
+import { SocialMediaButtons } from '../media/socialMedia'
+
 import './gameOver.css'
 import '../styles/global.css'
 
@@ -42,6 +44,7 @@ class GameOver extends Component {
                     }
                 </span>
                 <button className="button GameOver-button" onClick={this.retry}>Try again</button>
+                <SocialMediaButtons props={this.props} />
             </div>
         )
     }

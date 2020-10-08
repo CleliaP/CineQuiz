@@ -5,7 +5,7 @@ import { persistor, store } from './configureStore'
 
 import GameBoard from './app/components/GameBoard.js'
 
-import logo from './app/styles/img/logoCineQuiz.png'
+import logoCineQuiz from './app/styles/img/logoCineQuiz.png'
 import './App.css'
 import './app/styles/global.css'
 
@@ -26,7 +26,7 @@ class App extends Component {
         <PersistGate loading={null} persistor={persistor}>
           <div className="App">
             <header className="App-header">
-              <span className="App-header_logo"><img src={logo} alt="LogoCineQuiz"></img></span>
+              <span className="App-header_logo"><img src={logoCineQuiz} alt="LogoCineQuiz"></img></span>
               <span className="App-header_text">Clélia Pelleteret</span> 
             </header>
             <div className="App-body">
@@ -34,7 +34,7 @@ class App extends Component {
               this.state.beginGame 
               ? <GameBoard></GameBoard>
               : <>
-                  <div className="App-body_logo"><img src={logo} alt="LogoCineQuiz"></img></div>
+                  <div className="App-body_logo"><img src={logoCineQuiz} alt="LogoCineQuiz"></img></div>
                   <div className="App-body_rules">
                     <h2> Welcome to the quizz ! </h2>
                     <span className="pt5"> You'll be asked a series of <span className="text-bold">"Yes or No"</span> questions.</span>

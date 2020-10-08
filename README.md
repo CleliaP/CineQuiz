@@ -29,7 +29,10 @@ If you want to use your own key:
 
 In the project directory, you can run:
 * `npm run test` or `yarn test` Launches unit tests
-* `npm run build` or `yarn build` Create a production version
+
+## Test the build production 
+* Run `npm install -g serve` for create a test's server
+* Run `serve -s build` for execute the production's build
 
 ## Useful links
 * [Doc React](https://facebook.github.io/react/)
